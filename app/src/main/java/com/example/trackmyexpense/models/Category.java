@@ -1,4 +1,4 @@
-package com.example.trackmyexpense.Models;
+package com.example.trackmyexpense.models;
 
 import java.util.List;
 
