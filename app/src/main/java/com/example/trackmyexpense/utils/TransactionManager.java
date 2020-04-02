@@ -6,14 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionManager {
-    // TODO: Should be specific to a user
-    Double globalAmount;
-    Double globalBudget;
-    List<Transaction> transactionList;
+    private Double globalAmount;
+    private Double globalBudget;
+    private List<Transaction> transactionList;
 
     public TransactionManager() {
-        this.globalAmount = Double.valueOf(0);
-        this.globalBudget = Double.valueOf(1000);
+        this.globalAmount = 0d;
+        this.globalBudget = 1000d;
         this.transactionList = new ArrayList<Transaction>();
     }
 
