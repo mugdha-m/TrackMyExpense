@@ -5,7 +5,7 @@ import java.util.Date;
 public class Transaction {
     private Category category;
     private Date date;
-    double amount;
+    private double amount;
 
     public Transaction(Category category, Date date, double amount) {
         this.category = category;
