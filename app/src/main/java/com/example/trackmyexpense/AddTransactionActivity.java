@@ -9,6 +9,7 @@ import android.widget.EditText;
 import com.example.trackmyexpense.models.Category;
 import com.example.trackmyexpense.models.Transaction;
 import com.example.trackmyexpense.utils.TransactionManager;
+import com.example.trackmyexpense.utils.TransactionManagerImpl;
 
 import java.sql.Date;
 import android.widget.Toast;
@@ -34,7 +35,7 @@ public class AddTransactionActivity extends AppCompatActivity {
         Category cat = new Category(category, null);
         Transaction transaction = new Transaction(cat, Date.valueOf(date), amount);
 
-        TransactionManager transactionManager = new TransactionManager();
+        TransactionManager transactionManager = new TransactionManagerImpl();
         boolean result = transactionManager.addTransaction(transaction);
 
         Toast.makeText(getApplicationContext(), String.valueOf(result), Toast.LENGTH_SHORT).show();
