@@ -1,29 +1,47 @@
 package com.example.trackmyexpense.models;
 
-import java.util.List;
-
 public class Category {
-    private String name;
-    private List<Category> subCategories;
 
-    public Category(String name, List<Category> subCategories) {
-        this.name = name;
-        this.subCategories = subCategories;
+    private int categoryId;
+    private int parentCategoryId;
+    private String categoryName;
+
+    public Category() {
+
     }
 
-    public String getName() {
-        return name;
+    public Category(int parentCategoryId, String categoryName) {
+        this.parentCategoryId = parentCategoryId;
+        this.categoryName = categoryName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Category(int categoryId, int parentCategoryId, String categoryName) {
+        this.categoryId = categoryId;
+        this.parentCategoryId = parentCategoryId;
+        this.categoryName = categoryName;
     }
 
-    public List<Category> getSubCategories() {
-        return subCategories;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setSubCategories(List<Category> subCategories) {
-        this.subCategories = subCategories;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public int getParentCategoryId() {
+        return parentCategoryId;
+    }
+
+    public void setParentCategoryId(int parentCategoryId) {
+        this.parentCategoryId = parentCategoryId;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }
