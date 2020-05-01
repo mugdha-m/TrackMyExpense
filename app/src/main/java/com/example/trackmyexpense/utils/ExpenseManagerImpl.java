@@ -1,6 +1,7 @@
 package com.example.trackmyexpense.utils;
 
 import com.example.trackmyexpense.models.Expense;
+import com.example.trackmyexpense.storage.DatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +12,13 @@ public class ExpenseManagerImpl implements ExpenseManager {
     private double totalExpense;
     private List<Expense> expenseList;
 
-    public ExpenseManagerImpl() {
+    private DatabaseHelper mdatabaseHelper;
+
+    public ExpenseManagerImpl(DatabaseHelper databaseHelper) {
         this.remainingBudget = 1000d;
         this.totalExpense = 0d;
         this.expenseList = new ArrayList<>();
+        this.mdatabaseHelper = databaseHelper;
     }
 
     @Override
@@ -37,10 +41,7 @@ public class ExpenseManagerImpl implements ExpenseManager {
         if (expense == null) {
             return false;
         }
-
-        expenseList.add(expense);
-        totalExpense = totalExpense + expense.getExpenseAmount();
-        remainingBudget = remainingBudget - expense.getExpenseAmount();
+        mdatabaseHelper.addExpense(expense);
 
         return true;
     }
