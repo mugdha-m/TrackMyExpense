@@ -1,7 +1,16 @@
 <resources>
     <string name="app_name">TrackMyExpense</string>
     <string name="action_settings">Settings</string>
+
     <!-- Strings used for fragments for navigation -->
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+
+    <!-- Strings used for Add Expense Activity -->
+    <string name="add_transaction">Add a transaction</string>
+    <string name="amount">Amount</string>
+    <string name="category">Category</string>
+    <string name="date">Date</string>
+    <string name="enter_date">Enter Date</string>
+    <string name="submit">Submit</string>
 </resources>

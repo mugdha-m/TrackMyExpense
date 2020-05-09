@@ -7,8 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.trackmyexpense.models.Category;
+import com.example.trackmyexpense.models.Expense;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -111,5 +113,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.close();
 
         return categories;
+    }
+
+    public void addExpense(Expense expense) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_CATEGORY_ID, expense.getCategoryId());
+        values.put(KEY_EXPENSE_DATE, expense.getExpenseDate().getTime());
+        values.put(KEY_EXPENSE_AMOUNT, expense.getExpenseAmount());
+
+        long returnId = sqLiteDatabase.insert(TABLE_EXPENSE, null, values);
+        sqLiteDatabase.close();
+
+        //return returnId != -1;
+    }
+
+    public List<Expense> getAllExpenses() {
+        List<Expense> expenses = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + TABLE_EXPENSE;
+
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery(selectQuery, null);
+
+        // Looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Expense expense = new Expense();
+                expense.setExpenseId(cursor.getInt((cursor.getColumnIndex(KEY_EXPENSE_ID))));
+                expense.setCategoryId(cursor.getInt((cursor.getColumnIndex(KEY_CATEGORY_ID))));
+                expense.setExpenseDate(new Date(cursor.getLong(cursor.getColumnIndex(KEY_EXPENSE_DATE))));
+                expense.setExpenseAmount(cursor.getDouble(cursor.getColumnIndex(KEY_EXPENSE_AMOUNT)));
+
+                expenses.add(expense);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        sqLiteDatabase.close();
+
+        return expenses;
     }
 }
