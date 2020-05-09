@@ -4,20 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.text.InputType;
-import android.util.Log;
-import android.view.SurfaceControl;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.trackmyexpense.R;
 import com.example.trackmyexpense.models.Category;
 import com.example.trackmyexpense.models.Expense;
 import com.example.trackmyexpense.storage.DatabaseHelper;
+import com.example.trackmyexpense.utils.ExpenseManager;
 import com.example.trackmyexpense.utils.ExpenseManagerImpl;
 
 import java.text.ParseException;
@@ -28,16 +24,16 @@ import java.util.Date;
 public class AddExpenseActivity extends AppCompatActivity {
 
     DatePickerDialog picker;
-    EditText etext;
-    DatabaseHelper mdatabaseHelper;
+    EditText eDate;
+    DatabaseHelper mDatabaseHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_expense);
-        mdatabaseHelper = new DatabaseHelper(this);
+        mDatabaseHelper = new DatabaseHelper(this);
 
-        final EditText edittext= (EditText) findViewById(R.id.edit_date);
-        edittext.setOnClickListener(new View.OnClickListener() {
+        final EditText editDate= (EditText) findViewById(R.id.edit_date);
+        editDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Calendar cldr = Calendar.getInstance();
@@ -49,32 +45,31 @@ public class AddExpenseActivity extends AppCompatActivity {
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                edittext.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                editDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                             }
                         }, year, month, day);
                 picker.show();
             }
         });
 
-        etext = edittext;
+        eDate = editDate;
     }
 
     public void submitExpense(View button) throws ParseException {
-        Date date = new SimpleDateFormat("dd/MM/yyyy").parse(etext.getText().toString());
+        Date date = new SimpleDateFormat("dd/MM/yyyy").parse(eDate.getText().toString());
 
         EditText amountField = (EditText) findViewById(R.id.edit_amount);
-        double amount = Double.parseDouble(amountField.getText().toString());
+        double amount = Double.valueOf(amountField.getText().toString());
 
         EditText categoryField = (EditText) findViewById(R.id.edit_category);
-        String category = categoryField.getText().toString();
+        String categoryName = categoryField.getText().toString();
 
-        Category cat = new Category(1,0, category);
+        Category category = new Category(1,0, categoryName);
         Expense expense= new Expense(1, date, amount);
 
-        ExpenseManagerImpl expenseManager = new ExpenseManagerImpl(mdatabaseHelper);
+        ExpenseManager expenseManager = new ExpenseManagerImpl(mDatabaseHelper);
         boolean result = expenseManager.addExpense(expense);
 
         Toast.makeText(getApplicationContext(), String.valueOf(result), Toast.LENGTH_SHORT).show();
     }
-
 }

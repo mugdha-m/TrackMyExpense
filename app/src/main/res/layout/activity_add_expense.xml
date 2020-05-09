@@ -9,15 +9,15 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:orientation="vertical"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/text_add_transaction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add_transaction"
-            android:textSize="10pt">
+            android:textSize="12pt">
         </TextView>
 
         <EditText
@@ -25,15 +25,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/enter_date"
-            android:focusable="false"/>
-
+            android:focusable="false">
+        </EditText>
 
         <EditText
             android:id="@+id/edit_amount"
             android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
             android:hint="@string/amount"
-            android:inputType="text"
-            android:layout_width="fill_parent">
+            android:inputType="numberDecimal">
         </EditText>
 
         <EditText
@@ -51,7 +51,5 @@
             android:onClick="submitExpense"
             android:layout_width="fill_parent">
         </Button>
-
     </LinearLayout>
-
 </ScrollView>
