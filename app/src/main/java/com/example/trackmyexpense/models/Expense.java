@@ -4,19 +4,21 @@ import java.util.Date;
 
 public class Expense {
 
+    private String expenseName;
     private int expenseId;
     private int categoryId;
     private Date expenseDate;
-    private double expenseAmount;
+    private Double expenseAmount;
 
     public Expense() {
 
     }
 
-    public Expense(int categoryId, Date expenseDate, double expenseAmount) {
+    public Expense(int categoryId, Date expenseDate, double expenseAmount, String expenseName) {
         this.categoryId = categoryId;
         this.expenseDate = expenseDate;
         this.expenseAmount = expenseAmount;
+        this.expenseName = expenseName;
     }
 
     public Expense(int expenseId, int categoryId, Date expenseDate, double expenseAmount) {
@@ -50,11 +52,15 @@ public class Expense {
         this.expenseDate = expenseDate;
     }
 
-    public double getExpenseAmount() {
+    public Double getExpenseAmount() {
         return expenseAmount;
     }
 
-    public void setExpenseAmount(double expenseAmount) {
+    public void setExpenseAmount(Double expenseAmount) {
         this.expenseAmount = expenseAmount;
     }
+
+    public String getExpenseName() { return expenseName; }
+
+    public void setExpenseName(String expenseName) { this.expenseName = expenseName; }
 }

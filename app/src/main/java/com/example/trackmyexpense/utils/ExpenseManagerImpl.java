@@ -32,9 +32,7 @@ public class ExpenseManagerImpl implements ExpenseManager {
     }
 
     @Override
-    public List<Expense> getExpenseList() {
-        return expenseList;
-    }
+    public List<Expense> getExpenseList() { return mdatabaseHelper.getAllExpenses(); }
 
     @Override
     public boolean addExpense(Expense expense) {

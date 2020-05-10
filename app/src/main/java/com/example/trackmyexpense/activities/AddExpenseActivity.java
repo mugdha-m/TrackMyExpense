@@ -64,8 +64,11 @@ public class AddExpenseActivity extends AppCompatActivity {
         EditText categoryField = (EditText) findViewById(R.id.edit_category);
         String categoryName = categoryField.getText().toString();
 
+        EditText expenseNameField = (EditText) findViewById(R.id.edit_expense_name);
+        String expenseName = expenseNameField.getText().toString();
+
         Category category = new Category(1,0, categoryName);
-        Expense expense= new Expense(1, date, amount);
+        Expense expense= new Expense(1, date, amount, expenseName);
 
         ExpenseManager expenseManager = new ExpenseManagerImpl(mDatabaseHelper);
         boolean result = expenseManager.addExpense(expense);

@@ -32,6 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_EXPENSE_ID = "expense_id";
     private static final String KEY_EXPENSE_DATE = "expense_date";
     private static final String KEY_EXPENSE_AMOUNT = "expense_amount";
+    private static final String KEY_EXPENSE_NAME = "expense_name";
 
     // Category table create query
     private static final String CREATE_TABLE_CATEGORY = "CREATE TABLE "
@@ -47,6 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + KEY_EXPENSE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + KEY_CATEGORY_ID + " INTEGER,"
             + KEY_EXPENSE_DATE + " DATETIME,"
+            + KEY_EXPENSE_NAME + " VARCHAR(100),"
             + KEY_EXPENSE_AMOUNT + " REAL,"
             + " FOREIGN KEY (" + KEY_CATEGORY_ID + ") REFERENCES "
             + TABLE_CATEGORY + "(" + KEY_CATEGORY_ID + ")"
@@ -94,7 +96,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public List<Category> getAllCategories() {
         List<Category> categories = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + TABLE_CATEGORY;
-
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(selectQuery, null);
 
@@ -116,12 +117,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void addExpense(Expense expense) {
+
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(KEY_CATEGORY_ID, expense.getCategoryId());
         values.put(KEY_EXPENSE_DATE, expense.getExpenseDate().getTime());
         values.put(KEY_EXPENSE_AMOUNT, expense.getExpenseAmount());
+        values.put(KEY_EXPENSE_NAME, expense.getExpenseName());
 
         long returnId = sqLiteDatabase.insert(TABLE_EXPENSE, null, values);
         sqLiteDatabase.close();
@@ -143,6 +146,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 expense.setExpenseId(cursor.getInt((cursor.getColumnIndex(KEY_EXPENSE_ID))));
                 expense.setCategoryId(cursor.getInt((cursor.getColumnIndex(KEY_CATEGORY_ID))));
                 expense.setExpenseDate(new Date(cursor.getLong(cursor.getColumnIndex(KEY_EXPENSE_DATE))));
+                expense.setExpenseName(cursor.getString((cursor.getColumnIndex(KEY_EXPENSE_NAME))));
                 expense.setExpenseAmount(cursor.getDouble(cursor.getColumnIndex(KEY_EXPENSE_AMOUNT)));
 
                 expenses.add(expense);

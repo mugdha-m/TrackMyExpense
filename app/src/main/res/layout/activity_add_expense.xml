@@ -37,6 +37,14 @@
         </EditText>
 
         <EditText
+            android:id="@+id/edit_expense_name"
+            android:layout_height="wrap_content"
+            android:hint="@string/expense_name"
+            android:inputType="text"
+            android:layout_width="fill_parent">
+        </EditText>
+
+        <EditText
             android:id="@+id/edit_category"
             android:layout_height="wrap_content"
             android:hint="@string/category"
